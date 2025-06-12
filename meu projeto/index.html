@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Feliz Dia dos Namorados</title>
+  <style>
+    body {
+      background-color: #fff0f5;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 30px;
+      color: #b30059;
+    }
+    .surpresa-caixa {
+      border: 3px dashed #ff66a3;
+      padding: 30px;
+      border-radius: 20px;
+      background-color: #ffe6f0;
+      font-size: 1.5em;
+      cursor: pointer;
+      display: inline-block;
+    }
+    #conteudo {
+      display: none;
+    }
+    h1 {
+      font-size: 2.5em;
+    }
+    p {
+      font-size: 1.2em;
+    }
+    .carrossel {
+      max-width: 320px;
+      margin: 20px auto;
+      position: relative;
+    }
+    .carrossel img {
+      width: 100%;
+      border-radius: 15px;
+      display: none;
+    }
+    .carrossel img.active {
+      display: block;
+    }
+    .botoes-carrossel {
+      margin-top: 10px;
+    }
+    .botoes-carrossel button {
+      padding: 8px 16px;
+      margin: 0 5px;
+      background-color: #ff66a3;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      font-size: 1em;
+    }
+    .botoes-carrossel button:hover {
+      background-color: #ff3385;
+    }
+    video {
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+    button.surpresa {
+      display: block;
+      margin: 15px auto 0;
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: #ff66a3;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    button.surpresa:hover {
+      background-color: #ff3385;
+    }
+    #mensagemSecreta {
+      display: none;
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Caixa inicial com surpresa -->
+  <div id="inicio">
+    <div class="surpresa-caixa" onclick="mostrarConteudo()">🎁 Toque para uma surpresa</div>
+  </div>
+
+  <!-- Conteúdo que aparece após clicar -->
+  <div id="conteudo">
+    <h1>Te Amo!</h1>
+    <p>Feliz Dia dos Namorados! Você é tudo pra mim. ❤️</p>
+
+    <!-- Carrossel de imagens -->
+    <div class="carrossel">
+      <img src="Imagem/foto1.jpeg" alt="Foto 1" class="active" />
+      <img src="Imagem/foto2.jpeg" alt="Foto 2" />
+      <img src="Imagem/foto3.jpeg" alt="Foto 3" />
+      <img src="Imagem/foto4.jpeg" alt="Foto 4" />
+      <img src="Imagem/foto5.jpeg" alt="Foto 5" />
+    </div>
+    <div class="botoes-carrossel">
+      <button onclick="voltar()">‹ Voltar</button>
+      <button onclick="avancar()">Avançar ›</button>
+    </div>
+
+    <!-- Vídeo com som (ativa após clique) -->
+    <p>Assista ao vídeo que preparei:</p>
+    <video id="meuVideo" width="300" height="200" playsinline controls>
+      <source src="video/video1.mp4" type="video/mp4" />
+      Seu navegador não suporta o vídeo.
+    </video>
+
+    <!-- Botão de surpresa -->
+    <button class="surpresa" onclick="mostrarMensagem()">Clique para uma surpresa</button>
+
+    <!-- Mensagem secreta -->
+    <p id="mensagemSecreta">Você é o amor da minha vida. Nunca se esqueça disso. ❤️</p>
+  </div>
+
+  <script>
+    // Mostrar conteúdo escondido
+    function mostrarConteudo() {
+      document.getElementById('inicio').style.display = 'none';
+      document.getElementById('conteudo').style.display = 'block';
+
+      // Iniciar vídeo com som
+      const video = document.getElementById('meuVideo');
+      video.muted = false;
+      video.play();
+    }
+
+    // Mensagem secreta
+    function mostrarMensagem() {
+      const msg = document.getElementById("mensagemSecreta");
+      msg.style.display = msg.style.display === "block" ? "none" : "block";
+    }
+
+    // Carrossel automático
+    let indice = 0;
+    const fotos = document.querySelectorAll(".carrossel img");
+
+    function mostrarFoto(i) {
+      fotos.forEach((img, idx) => {
+        img.classList.toggle("active", idx === i);
+      });
+    }
+
+    function avancar() {
+      indice = (indice + 1) % fotos.length;
+      mostrarFoto(indice);
+    }
+
+    function voltar() {
+      indice = (indice - 1 + fotos.length) % fotos.length;
+      mostrarFoto(indice);
+    }
+
+    setInterval(avancar, 3000);
+  </script>
+</body>
+</html>
